@@ -88,6 +88,8 @@ def display_team():
         st.write("""
         **Position:** Software Engineer  
         """)
+        
+    st.title("Reference")
     
 # 페이지가 호출될 때 함수 실행
 if __name__ == "__main__":
