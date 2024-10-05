@@ -9,17 +9,17 @@ st.set_page_config(page_title="NASA Apps", layout="wide")
 
 # 페이지 선택
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Select a page", ["purpose", "working process", "our_team"])
+page = st.sidebar.radio("Select a page", ["Purpose", "Working Process", "Our Team"])
 
 # 선택된 페이지에 따라 내용 표시
-if page == "Page 2":
+if page == "Purpose":
     import pages.purpose
-elif page == "working process":
+elif page == "Working Process":
     import pages.working_process
-elif page == "our team":
+elif page == "Our Team":
     import pages.our_team
 
-st.title('GUGUDUCK')
+st.title('Seismic Detection')
 
 uploaded_file = st.file_uploader('Upload Seismic File', label_visibility = 'hidden', type=['mseed'], accept_multiple_files=False)
 
