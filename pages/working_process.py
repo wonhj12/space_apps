@@ -1,10 +1,44 @@
 import streamlit as st
 
 
+def display_sidebar_toc():
+    st.markdown("""
+    <style>
+    /* Style the sidebar */
+    .sidebar .sidebar-content {
+        background-color: #f0f2f6;
+        padding: 20px;
+    }
+    
+    /* Style TOC links in the sidebar */
+    .toc-link {
+        font-size: 20px;
+        color: sky-blue;
+        text-decoration: none;
+        padding: 3px 0;
+        display: block;
+    }
+
+    .toc-link:hover {
+        color: #2c3e50;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+    
+    st.sidebar.title("Contents")
+    st.sidebar.markdown("""
+    1. <a class="toc-link" href="#data-processing"> Data Processing </a>
+    2. <a class="toc-link" href="#model-architecture"> Model Architecture </a>
+    """, unsafe_allow_html=True)
+
+
 def Data_processing():
     st.title("Working Process")
 
-    st.header("Data Processing")
+    st.markdown("# Data Processing", unsafe_allow_html=True)
 
     # 두 개의 열 생성
     col1, col2 = st.columns([2.5, 1])  # 첫 번째 열이 이미지를, 두 번째 열이 텍스트를 담당 (비율 조정 가능)
@@ -66,8 +100,28 @@ def Data_processing():
 
 
 def display_model_description():
-    st.header("Model Architecture")
-    st.image("images/models/1dCNN.png", caption="1D-CNN Architecture Diagram")
+    st.markdown("# Model Architecture", unsafe_allow_html=True)
+    
+    st.subheader("Why 1D-CNN?")
+    st.markdown("#### **1) Temporal Pattern Recognition**")
+    st.write("""
+    1D-CNNs are capable of learning key patterns and features in time series data. 
+    By using convolution operations, they capture local correlations over time, making them effective in detecting changes in time series data.
+    """)
+
+    st.markdown("#### **2) Efficient Feature Extraction**")
+    st.write("""
+    1D-CNNs can automatically extract important features from time series data using filters (kernels). 
+    This is more efficient than manually designing features and allows the model to learn various patterns.
+    """)
+
+    st.markdown("#### **3) Lightweight and Computationally Efficient**")
+    st.write("""
+    1D-CNNs are lightweight enough to be loaded and executed even using CPU resources, offering both low computational cost and efficiency. 
+    In order to deploy the model through GCP, it needed to perform predictions quickly even with CPU resources. 
+    Among the models used for time series analysis, this approach proved to be the most effective.
+    """)
+    
     code_string = """
     # 1D-Model Definition
     def create_1d_cnn_model(input_shape):
@@ -86,9 +140,50 @@ def display_model_description():
         return model
     """
     st.code(code_string, language="python")
+    st.image("images/models/1dCNN.png", caption="1D-CNN Architecture Diagram")
+    
+    st.divider()
+    st.subheader("Model Structure")
+    st.markdown("#### **Convolution Layer**")
+    st.write("""
+    - `Conv1D(filters=64, kernel_size=3, activation='relu', input_shape=input_shape)`: 
+    This 1D convolutional layer uses 64 filters to learn patterns from the input data. 
+    The `kernel_size=3` means the layer processes three consecutive data points (representing 3 time intervals in the time series). 
+    `input_shape` specifies the shape of the input, which includes the length and the number of channels of the time series data.
+    """)
+
+    st.markdown("#### **MaxPooling1D Layer**")
+    st.write("""
+    - `MaxPooling1D(pool_size=2)`: This max-pooling layer uses a pool size of 2, reducing the size of the input data by half. 
+    This helps speed up learning and prevents overfitting.
+    - The Conv + MaxPooling layers are repeated 3 times.
+    - Activation function: **ReLU**
+    """)
+
+    st.markdown("#### **Flatten Layer**")
+    st.write("""
+    - `Flatten()`: This layer flattens the multidimensional output from the convolution layers into a 1D array to pass to the Dense layers.
+    """)
+
+    st.markdown("#### **Dense Layer**")
+    st.write("""
+    - `Dense(128, activation='relu')`: A fully connected layer with 128 nodes that processes the extracted features from the final convolutional layer 
+    and learns higher-level patterns for prediction.
+    """)
+
+    st.markdown("#### **Dropout Layer**")
+    st.write("""
+    - `Dropout(0.5)`: To prevent overfitting, dropout is applied, randomly disabling 50% of the nodes during training.
+    """)
+
+    st.markdown("#### **Output Layer**")
+    st.write("""
+    - `Dense(1)`: The final output layer returns a single value, predicting the event's start time.
+    """)
 
 
 if __name__ == "__main__":
+    display_sidebar_toc()
     Data_processing()
     st.divider()
     display_model_description()
