@@ -1,5 +1,30 @@
 import streamlit as st
 
+
+def display_model_description():
+    st.title("working process")
+
+    st.header("Model Architecture")
+    st.image("images/models/1dCNN.png", caption="1D-CNN Architecture Diagram")
+    code_string = """
+    # 1D-Model Definition
+    def create_1d_cnn_model(input_shape):
+        model = Sequential([
+            Conv1D(filters=64, kernel_size=3, activation='relu', input_shape=input_shape),
+            MaxPooling1D(pool_size=2),
+            Conv1D(filters=128, kernel_size=3, activation='relu'),
+            MaxPooling1D(pool_size=2),
+            Conv1D(filters=256, kernel_size=3, activation='relu'),
+            MaxPooling1D(pool_size=2),
+            Flatten(),
+            Dense(128, activation='relu'),
+            Dropout(0.5),
+            Dense(1)  # Output Layer: Print Out Event Start Time
+        ])
+        return model
+    """
+    st.code(code_string, language="python")
+
 def Data_processing():
 
     st.title("working process")
@@ -8,8 +33,6 @@ def Data_processing():
 
     # 두 개의 열 생성
     col1, col2 = st.columns([2.5, 1])  # 첫 번째 열이 이미지를, 두 번째 열이 텍스트를 담당 (비율 조정 가능)
-
-
 
     # 두 번째 열에 텍스트 배치
     with col1:
@@ -68,5 +91,7 @@ def Data_processing():
 
     st.header("Model Structure")
 
+
 if __name__ == "__main__":
     Data_processing()
+    display_model_description()
