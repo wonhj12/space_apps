@@ -1,33 +1,8 @@
 import streamlit as st
 
 
-def display_model_description():
-    st.title("working process")
-
-    st.header("Model Architecture")
-    st.image("images/models/1dCNN.png", caption="1D-CNN Architecture Diagram")
-    code_string = """
-    # 1D-Model Definition
-    def create_1d_cnn_model(input_shape):
-        model = Sequential([
-            Conv1D(filters=64, kernel_size=3, activation='relu', input_shape=input_shape),
-            MaxPooling1D(pool_size=2),
-            Conv1D(filters=128, kernel_size=3, activation='relu'),
-            MaxPooling1D(pool_size=2),
-            Conv1D(filters=256, kernel_size=3, activation='relu'),
-            MaxPooling1D(pool_size=2),
-            Flatten(),
-            Dense(128, activation='relu'),
-            Dropout(0.5),
-            Dense(1)  # Output Layer: Print Out Event Start Time
-        ])
-        return model
-    """
-    st.code(code_string, language="python")
-
 def Data_processing():
-
-    st.title("working process")
+    st.title("Working Process")
 
     st.header("Data Processing")
 
@@ -87,11 +62,33 @@ def Data_processing():
         (221336, 6000), (221336,)
         X_test, y_test
         (9096, 6000), (9096,)
-        """)
+        """)  
 
-    st.header("Model Structure")
+
+def display_model_description():
+    st.header("Model Architecture")
+    st.image("images/models/1dCNN.png", caption="1D-CNN Architecture Diagram")
+    code_string = """
+    # 1D-Model Definition
+    def create_1d_cnn_model(input_shape):
+        model = Sequential([
+            Conv1D(filters=64, kernel_size=3, activation='relu', input_shape=input_shape),
+            MaxPooling1D(pool_size=2),
+            Conv1D(filters=128, kernel_size=3, activation='relu'),
+            MaxPooling1D(pool_size=2),
+            Conv1D(filters=256, kernel_size=3, activation='relu'),
+            MaxPooling1D(pool_size=2),
+            Flatten(),
+            Dense(128, activation='relu'),
+            Dropout(0.5),
+            Dense(1)  # Output Layer: Print Out Event Start Time
+        ])
+        return model
+    """
+    st.code(code_string, language="python")
 
 
 if __name__ == "__main__":
     Data_processing()
+    st.divider()
     display_model_description()
