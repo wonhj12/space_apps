@@ -13,3 +13,9 @@ elif page == "Page 1":
     import pages.predict
 elif page == "Page 2":
     import pages.purpose
+elif page == "working process":
+    import pages.working_process
+elif page == "reference":
+    import pages.reference
+elif page == "our team":
+    import pages.our_team
