@@ -7,15 +7,9 @@ st.sidebar.title("Navigation")
 page = st.sidebar.radio("Select a page", ["Home", "Page 1", "Page 2"])
 
 # 선택된 페이지에 따라 내용 표시
-if page == "Home":
-    import pages.home
-elif page == "Page 1":
-    import pages.predict
-elif page == "Page 2":
+if page == "Page 2":
     import pages.purpose
 elif page == "working process":
     import pages.working_process
-elif page == "reference":
-    import pages.reference
 elif page == "our team":
     import pages.our_team
