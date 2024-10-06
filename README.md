@@ -1,15 +1,11 @@
 # NASA Space Apps Challenge - Team 구구덕
-## Background
-### Benefits of Seismic Wave Exploration
-- Understanding the Internal Structure of Celestial Bodies
-- Providing Basic Data for Exploration
-- Researching Planetary Evolution and Formation Processes
-### Main challenge to solve
-- **high cost** : Transmitting the vast amounts of data collected by spacecraft from celestial bodies back to Earth is very costly, as it requires a significant amount of power to send the data, which is greatly affected by distance.
-- **signal delay** : The distance between Earth and celestial bodies causes signal delays. Signal delays can lead to interference, increasing the likelihood of data loss or errors during transmission.
+## 1. Background
+### Main Challenges to Solve
+- **High Cost** : Transmitting the vast amounts of data collected by spacecraft from celestial bodies back to Earth is very costly, as it requires a significant amount of power to send the data, which is greatly affected by distance.
+- **Signal Delay** : The distance between Earth and celestial bodies causes signal delays. Signal delays can lead to interference, increasing the likelihood of data loss or errors during transmission.
 
-
-## Working Process
+----
+## 2. Working Process
 ### Data Processing
 - **Slicing with overlaps** : To predict seismic events using deep learning, we initially had a small dataset of 77 samples, which increased to about 200 after adding IRIS data. This was still insufficient, so we augmented the data by slicing the seismic data into 6000-step intervals and overlapping points. Shifting the starting point by 100 steps generated multiple samples, ensuring enough data for training.
   
@@ -21,16 +17,18 @@
 
 
 ### How To Use CNN
-#### Classification
+#### STEP 1) Binary Classification to Find the Section Containing the Event Point
+
 - The task is to classify whether a 6000-step section contains an event point (binary classification).
-A 1D-CNN processes the sequences to learn spatial features, using ReLU activations in the convolution and pooling layers. The output passes through a fully connected layer for binary classification. CrossEntropyLoss and the Adam optimizer are used for training. The model achieved a Validation Loss of 0.0936 and a Validation Accuracy of 0.9782, showing high accuracy in detecting event points.
+A 1D-CNN processes the sequences to learn spatial features, using ReLU activations in the convolution and pooling layers. The output passes through a fully connected layer for binary classification. CrossEntropyLoss and the Adam optimizer are used for training.
+
+<img width="1463" alt="image" src="https://github.com/user-attachments/assets/1a52f7eb-3843-4666-a7d2-7376270894e0">
 
 ![9c7f1391cda52e52ce10c3a69b0dc07308cb25b484705a2e89eac08f](https://github.com/user-attachments/assets/db5ccc30-761d-4402-bdcb-00383bb11921)
 
 
-
-#### Find the event point
-- After detecting sections with event points, the next step is to locate the exact event point within the section. A CNN is used to learn patterns and predict the probability of the event at each point, identifying the one with the highest probability. The model achieved a val_loss of 7391.5918 and Val_Accuracy of 0.00088, showing its strong capability to accurately pinpoint the event's location.
+#### STEP 2) Regression to Find the Event Point
+- After detecting sections with event points, the next step is to locate the exact event point within the section. A CNN is used to learn patterns and predict the probability of the event at each point, identifying the one with the highest probability. The model shows its strong capability to accurately pinpoint the event's location.
 ![9a4ce20021e2ed99294b82e42361e307d628fc02a1b0f8ddac1132fd](https://github.com/user-attachments/assets/ebcdc8fe-e4b2-4599-9944-610b85ba2952)
 
 ```
@@ -50,12 +48,24 @@ def create_1d_cnn_model(input_shape):
     ])
     return mode
 ```
-## Our Team
+
+#### Model Performance
+
+| Model       | Metric              | Value     |
+|-------------|---------------------|-----------|
+| Classifier  | Validation Loss      | 0.0936    |
+|             | Validation Accuracy  | 0.9782    |
+| Regressor  | Validation Loss      | 7391.5918 |
+|             | MSE                  | 2407.4464 |
+
+---
+
+## 3. Our Team
 ### Team Member
 <table>
   <tbody>
     <tr>
-      <td align="center"><img src="https://github.com/user-attachments/assets/054db3b9-01cc-4593-af45-a80c0c3f142c" width="100px;" alt=""/><br /><sub><b>Lead Scienctist : 원하진</b></sub><br /></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/054db3b9-01cc-4593-af45-a80c0c3f142c" width="100px;" alt=""/><br /><sub><b>Lead Scientist : 원하진</b></sub><br /></td>
       <td align="center"><img src="https://github.com/user-attachments/assets/147d16dc-6ff6-4810-bf60-ed9c2460aca9" width="100px;" alt=""/><br /><sub><b>Software Engineer : 양은서</b></sub><br /></td>
       <td align="center"><img src="https://github.com/user-attachments/assets/61900f80-f3ce-4ffb-b48e-b5a9a6a96029" width="100px;" alt=""/><br /><sub><b>Software Engineer : 최다영</b></sub><br /></td>
      <tr/>
