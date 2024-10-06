@@ -266,9 +266,33 @@ def model_working_process():
     Ultimately, the model achieves **a Validation Loss of 0.0936** and **a Validation Accuracy of 0.9782**, demonstrating a very high accuracy in classifying whether or not a section contains an event point.
     """)
 
+    st.markdown("""
+    <div>
+        <h3 style="color : #d38856">
+            Post-Processing
+        </h3>
+    </div>""", unsafe_allow_html=True)
+
+    st.write("""
+    When we checked CNN's output, we found that it worked well for some data, but not for others, especially when the boundaries between sections were ambiguously spanned by event points, or when the data classified event points as being in too many sections. We developed algorithms to improve this.
+    """)
+
+    st.write("""
+    The first is to predict the sections as before, and then predict them again by shifting the starting position by half the size of the section. This way, even if the event point spans an ambiguous location, the event point can still be found because it has been trained a second time by shifting half a space. If the range of the original section and the range of the section shifted by half a space overlapped, we chose the section that was further ahead because it was more likely to have the start of the seismic wave earlier.
+    """)
+
+    st.write("""
+    The second method was to extract the largest velocity value from each section up to two spaces behind the section size, designate it as the max velocity for that section, and determine that only the top three sections with the largest velocity values contained event points. We used this method because when we analyzed the data, we found that most of the relatively large velocity values occurred after the start of the seismic waves, so we believed that the sections with the largest velocities were more likely to contain event points.
+    """)
+
+    st.write("""
+    This is what the results looked like when using these algorithms:
+    """)
+
     st.image("images/classification_1.png")
+    st.write("before")
     st.image("images/classification_2.png")
-    
+    st.write("after")
     
     st.markdown("""
     <div>
