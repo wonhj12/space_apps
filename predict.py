@@ -6,6 +6,7 @@ import json
 from controller.prepare_data import read_mseed_data
 from controller.model import predict
 from streamlit_lottie import st_lottie
+from streamlit_option_menu import option_menu
 
 # Lottie 애니메이션 로딩
 def load_lottiefile(filepath: str):
