@@ -70,7 +70,7 @@ def Data_processing():
 
     # 첫 번째 열에 이미지 배치
     with col2:
-        st.image("images/Lunar.png", width=200, caption="lunar")
+        st.image("images/astronaut.png", width=200, caption="Astronaut in moon")
         
     # Slicing with overlap
     st.markdown("""
@@ -225,13 +225,25 @@ def display_model_description():
     """)
     
 def model_working_process():
-    st.markdown("# How To Use CNN?", unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div>
+        <h1 style="color : #d38856">
+            How To Use CNN?
+        </h1>
+    </div>""", unsafe_allow_html=True)
     
     st.write("""
     A day’s worth of data (one day) consists of 570,000 sequence data points. However, since it was too large to train the model with all the data at once, we decided to first divide the data into 6000 sections and determine whether each section contains an event point. Afterward, the exact event point was identified in the sections predicted to have an event, thus achieving the final goal.
     """)
     
-    st.subheader("1. Classification")
+    st.markdown("""
+    <div>
+        <h2 style="color : #d38856">
+            1. Classification
+        </h2>
+    </div>""", unsafe_allow_html=True)
+    
     
     st.write("""
     This task involves classifying which of the 6000 sections contains an event point. It is a binary classification problem, and the goal is to predict whether a given section includes an event point.
@@ -255,7 +267,17 @@ def model_working_process():
     Ultimately, the model achieves **a Validation Loss of 0.0936** and **a Validation Accuracy of 0.9782**, demonstrating a very high accuracy in classifying whether or not a section contains an event point.
     """)
     
-    st.subheader("2. Find the event point")
+    st.image("images/classification_1.png")
+    st.image("images/classification_2.png")
+    
+    
+    st.markdown("""
+    <div>
+        <h1 style="color : #d38856">
+            2. Find the event point
+        </h1>
+    </div>""", unsafe_allow_html=True)
+    
     
     st.write("""
     After predicting which sections contain an event point in the previous step, the next task is to identify the exact point where the event occurs within the predicted section.""")
@@ -269,10 +291,11 @@ def model_working_process():
     """)
     
     st.write("""
-    The final results show **a Validation Loss of 0.0936** and **a Validation Accuracy of 0.9782**, demonstrating the model’s strong performance in accurately identifying the event point. This indicates that the model can successfully detect the precise location of the event point within the section where the event occurs.
+    The final results show **val_loss of 7391.5918** and **Val_Accuracy of 8.8421e-04**, demonstrating the model’s strong performance in accurately identifying the event point. This indicates that the model can successfully detect the precise location of the event point within the section where the event occurs.
     """)
     
-
+    st.caption("""Accuracy Function Definition : Consider a prediction accurate if the difference between the predicted and actual value is less than or equal to 0.1""")
+    
 if __name__ == "__main__":
     display_sidebar_toc()
     Data_processing()

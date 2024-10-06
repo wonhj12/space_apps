@@ -93,7 +93,7 @@ def display_team():
     
     # 출처를 기재하는 코드
     st.markdown("### Image Sources")
-    st.markdown("1. lunar data : [Nvida](https://blogs.nvidia.co.kr/blog/nasa_deeplearning/)")
+    st.markdown("1. Astronaut in moon : [Nvida](https://blogs.nvidia.co.kr/blog/nasa_deeplearning/)")
     st.markdown("2. Seismic Exploration on Mars : [Space Apps Challenge](https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/)")
     # 텍스트 출처
     st.markdown("### Text Reference")
