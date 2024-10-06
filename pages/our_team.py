@@ -3,6 +3,38 @@ from PIL import Image
 import pandas as pd  # pandas for DataFrame handling
 import base64  # for encoding CSV file to base64
 
+def display_sidebar_toc():
+    st.markdown("""
+    <style>
+    /* Style the sidebar */
+    .sidebar .sidebar-content {
+        background-color: #f0f2f6;
+        padding: 20px;
+    }
+    
+    /* Style TOC links in the sidebar */
+    .toc-link {
+        font-size: 20px;
+        text-decoration: none;
+        padding: 3px 0;
+        display: block;
+    }
+
+    .toc-link:hover {
+        color: #8b5543;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+    
+    st.sidebar.title("Contents")
+    st.sidebar.markdown("""
+    1. <a class="toc-link" href="#Our Team"> Our Team </a>
+    2. <a class="toc-link" href="#Reference"> Reference </a>
+    """, unsafe_allow_html=True)
+
 def display_team():
     # 예시 데이터프레임
     # df = pd.DataFrame({
@@ -22,7 +54,13 @@ def display_team():
 
     # st.markdown(href, unsafe_allow_html=True)
     
-    st.title("Our Team")
+    
+    st.markdown("""
+    <div>
+        <h1 style="color : #d38856">
+            Our Team
+        </h1>
+    </div>""", unsafe_allow_html=True)
     
     # 이미지 로드
     img = Image.open("images/ALL.png")
@@ -89,24 +127,48 @@ def display_team():
         **Position:** Software Engineer  
         """)
         
-    st.title("Reference")
+    
+    st.markdown("""
+    <div>
+        <h1 style="color : #d38856">
+            Reference
+        </h1>
+    </div>""", unsafe_allow_html=True)
     
     # 출처를 기재하는 코드
-    st.markdown("### Image Sources")
+    st.markdown("""
+    <div>
+        <h2 style="color : #d38856">
+            Image Sources
+        </h2>
+    </div>""", unsafe_allow_html=True)
     st.markdown("1. Astronaut in moon : [Nvida](https://blogs.nvidia.co.kr/blog/nasa_deeplearning/)")
     st.markdown("2. Seismic Exploration on Mars : [Space Apps Challenge](https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/)")
 
     # 텍스트 출처
-    st.markdown("### Text Reference")
+    st.markdown("""
+    <div>
+        <h2 style="color : #d38856">
+            Text Reference
+        </h2>
+    </div>""", unsafe_allow_html=True)
+    
     st.markdown("1. [Seismic Detection Across the Solar System](https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/)")
     st.markdown("2. [NASA’s InSight Detects First Likely ‘Quake’ on Mars](https://science.nasa.gov/missions/insight/nasas-insight-detects-first-likely-quake-on-mars/)")
     st.markdown("3. [NASA’s InSight Reveals the Deep Interior of Mars](https://www.jpl.nasa.gov/news/nasas-insight-reveals-the-deep-interior-of-mars/)")
     st.markdown("4. [Mars Seismic Deployment Lays Groundwork for Future Planetary Missions](https://www.seismosoc.org/news/mars-seismic-deployment-lays-groundwork-for-future-planetary-missions/)")
     st.markdown("5. [InSight Lander](https://science.nasa.gov/mission/insight/)")
     
-    st.markdown("### Reference AI")
+    
+    st.markdown("""
+    <div>
+        <h2 style="color : #d38856">
+            AI Reference
+        </h2>
+    </div>""", unsafe_allow_html=True)
     st.markdown("1. [Chat GPT](https://chatgpt.com/)")
     
 # 페이지가 호출될 때 함수 실행
 if __name__ == "__main__":
+    display_sidebar_toc()
     display_team()
