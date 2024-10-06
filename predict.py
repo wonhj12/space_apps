@@ -35,24 +35,38 @@ def detect_seismic(file):
         _, ax = plt.subplots(1, 1, figsize=(10, 3))
         ax.plot(times, velocity)
 
+        classification_label_added = False
+        event_label_added = False
+
         # 이벤트 표시
         for i in range(len(event_times)):
             if (len(classified_events) > 0):
                 # Classification이 된 경우
                 start, end, _ = classified_events[i]
-                ax.axvspan(start, end, color='yellow', alpha=0.3, label='Predicted Event Segment')
+                if not classification_label_added:
+                    ax.axvspan(start, end, color='yellow', alpha=0.3, label='Predicted Event Segment')
+                    classification_label_added = True
+                else:
+                    ax.axvspan(start, end, color='yellow', alpha=0.3)
             else:
                 # Classification이 되지 않은 경우
                 start = i * segment_length / sampling_rate
                 if i % 2 != 0:
                     continue
-            event = event_times[i]
+            event = event_times[i] / sampling_rate
             rel_time = event + start
-            ax.axvline(x=rel_time, color='red', linestyle='-', label='Rel. Arrival')
+            if not event_label_added:
+                ax.axvline(x=rel_time, color='red', linestyle='-', label='Rel. Arrival')
+                event_label_added = True
+            else:
+                ax.axvline(x=rel_time, color='red', linestyle='-')
+                
 
         ax.set_xlim([min(times),max(times)])
         ax.set_ylabel('Velocity (m/s)')
         ax.set_xlabel('Time (s)')
+
+        ax.legend(loc='upper left')
 
         # 로딩 완료 후 로딩 애니메이션 제거
         animation_placeholder.empty()
