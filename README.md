@@ -70,7 +70,7 @@ def create_1d_cnn_model(input_shape):
 |-----------------|----------------------------|
 | Main Language   | Python                     |
 | Dashboard       | Streamlit                  |
-| Model           | PyTorch, TensorFlow        |
+| Model           | PyTorch                    |
 | Model Training  | KT Cloud, Jupyter Notebook |
 | Server & DNS    | GCP VM Machine, Porkbun    |
 | Collaboration   | Notion, GitHub             |
@@ -83,6 +83,10 @@ def create_1d_cnn_model(input_shape):
 
 ### How to Test Locally
 ```
+# Execute virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
 # install dependencies
 pip install -r requirements.txt
 
