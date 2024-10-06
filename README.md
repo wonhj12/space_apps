@@ -10,6 +10,7 @@
 ## 2. Working Process
 ### Data Source
 [Seismic Detection Across the Solar System](https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/?tab=resources)
+
 ### Data Processing
 - **Slicing with overlaps** : To predict seismic events using deep learning, we initially had a small dataset of 77 samples, which increased to about 200 after adding IRIS data. This was still insufficient, so we augmented the data by slicing the seismic data into 6000-step intervals and overlapping points. Shifting the starting point by 100 steps generated multiple samples, ensuring enough data for training.
   
@@ -69,7 +70,7 @@ def create_1d_cnn_model(input_shape):
 |-----------------|----------------------------|
 | Main Language   | Python                     |
 | Dashboard       | Streamlit                  |
-| Model           | PyTorch, TensorFlow        |
+| Model           | PyTorch                    |
 | Model Training  | KT Cloud, Jupyter Notebook |
 | Server & DNS    | GCP VM Machine, Porkbun    |
 | Collaboration   | Notion, GitHub             |
@@ -82,6 +83,10 @@ def create_1d_cnn_model(input_shape):
 
 ### How to Test Locally
 ```
+# Execute virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
 # install dependencies
 pip install -r requirements.txt
 
