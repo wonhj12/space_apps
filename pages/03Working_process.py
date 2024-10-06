@@ -91,31 +91,25 @@ def Data_processing():
     02. We extracted the seismic event time `event_time_rel` from the catalog and began slicing the data starting from `event_index - (time_step // 2)`. 
     We decided to slice the data into intervals of 6000 steps, so we've set `time_step = 6000` to slice and save the data into an array. 
     Then, we used `event_time_rel` as the reference point to extract several points from the sliced data.
+    After the first slice, we shifted the starting point by factor of `overlap_step = 25` and repeatedly generated new samples. 
+    Since we overlapped the data points while slicing, we were able to create enough samples
     """)
     slice_code = """
-    for start_index in range(max(0, event_index - time_step // 2), min(len(velocity) - time_step + 1, event_index + 1)):
+    for start_index in range(max(0, event_index - time_step // 2), min(len(velocity) - time_step + 1, event_index + 1), overlap_step):
         end_index = start_index + time_step
     """
     st.code(slice_code,language="python")
 
-    st.write("""
-    03. After the first slice, we shifted the starting point by factor of `overlap_step = 100` and repeatedly generated new samples. 
-    Since we overlapped the data points while slicing, we were able to create enough samples""")
-    overlap_code = """
-    for start_index in range(max(0, event_index - time_step // 2), min(len(velocity) - time_step + 1, event_index + 1), overlap_step):
-        end_index = start_index + time_step
-    """
-    st.code(overlap_code,language="python")
 
     st.markdown("###", unsafe_allow_html=True)
 
     st.write("""
-    We were able to successfully increase the dataset from 77 samples to around 230,000, 
+    We were able to successfully increase the dataset from 77 samples to around 7000 train data, 
     completing the preparation process for effective deep learning training.""")
 
     st.code("""
-    X_train, y_train = (221336, 6000), (221336,)
-    X_test, y_test = (9096, 6000), (9096,)
+    X_train, y_train = (7018, 6000), (7018,)
+    X_val, y_val = (60, 6000), (60,)
     """)  
 
 
@@ -159,21 +153,52 @@ def display_model_description():
     st.markdown("###", unsafe_allow_html=True)
     
     code_string = """
-    # 1D-Model Definition
-    def create_1d_cnn_model(input_shape):
-        model = Sequential([
-            Conv1D(filters=64, kernel_size=3, activation='relu', input_shape=input_shape),
-            MaxPooling1D(pool_size=2),
-            Conv1D(filters=128, kernel_size=3, activation='relu'),
-            MaxPooling1D(pool_size=2),
-            Conv1D(filters=256, kernel_size=3, activation='relu'),
-            MaxPooling1D(pool_size=2),
-            Flatten(),
-            Dense(128, activation='relu'),
-            Dropout(0.5),
-            Dense(1)  # Output Layer: Print Out Event Start Time
-        ])
-        return model
+    class OneDCNNRegressionModel(nn.Module):
+        def __init__(self, input_channels):
+            super(OneDCNNRegressionModel, self).__init__()
+            self.conv1 = nn.Conv1d(in_channels=1, out_channels=64, kernel_size=3)
+            self.pool1 = nn.MaxPool1d(kernel_size=2)
+            
+            self.conv2 = nn.Conv1d(in_channels=64, out_channels=128, kernel_size=3)
+            self.pool2 = nn.MaxPool1d(kernel_size=2)
+            
+            self.conv3 = nn.Conv1d(in_channels=128, out_channels=256, kernel_size=3)
+            self.pool3 = nn.MaxPool1d(kernel_size=2)
+            
+            conv_output_size = self.calculate_conv_output_size(input_channels)
+            self.fc1 = nn.Linear(conv_output_size, 128)
+            self.dropout = nn.Dropout(0.5)
+            self.fc2 = nn.Linear(128, 1)
+
+        def calculate_conv_output_size(self, input_channels):
+            size = input_channels
+            size = (size - 2) // 2  # conv1 and pool1
+            size = (size - 2) // 2  # conv2 and pool2
+            size = (size - 2) // 2  # conv3 and pool3
+            return size * 256
+
+        def forward(self, x):
+            x = x.unsqueeze(1)
+            
+            # Conv1, Pooling
+            x = F.relu(self.conv1(x))
+            x = self.pool1(x)
+            
+            # Conv2, Pooling
+            x = F.relu(self.conv2(x))
+            x = self.pool2(x)
+            
+            # Conv3, Pooling
+            x = F.relu(self.conv3(x))
+            x = self.pool3(x)
+            
+            # Flatten, Fully Connected Layer, Dropout
+            x = x.view(x.size(0), -1)  # Flatten
+            x = F.relu(self.fc1(x))
+            x = self.dropout(x)
+            
+            x = self.fc2(x)
+            return x
     """
     st.code(code_string, language="python")
     st.image("images/models/1dCNN.png", caption="1D-CNN Architecture Diagram")
@@ -189,7 +214,7 @@ def display_model_description():
     st.markdown("### Convolution layer")
 
     st.write("""
-    - `Conv1D(filters=64, kernel_size=3, activation='relu', input_shape=input_shape)`: 
+    - `Conv1d(in_channels=1, out_channels=64, kernel_size=3)`: 
     This 1D convolutional layer uses 64 filters to learn patterns from the input data. 
     The `kernel_size=3` shows that the layer processes three consecutive data points (representing 3 time intervals in the time series). 
     `input_shape` specifies the shape of the input, which includes the length and the number of channels of the time series data.
@@ -197,7 +222,7 @@ def display_model_description():
 
     st.markdown("### MaxPooling1D layer")
     st.write("""
-    - `MaxPooling1D(pool_size=2)`: This max-pooling layer uses a pool size of 2, reducing the size of the input data by half. 
+    - `MaxPool1d(kernel_size=2)`: This max-pooling layer uses a pool size of 2, reducing the size of the input data by half. 
     This helps the model to speed up learning and prevents overfitting.
     - The Conv + MaxPooling layers are repeated 3 times.
     - Activation function: **ReLU**
@@ -205,12 +230,12 @@ def display_model_description():
 
     st.markdown("### Flatten layer")
     st.write("""
-    - `Flatten()`: This layer flattens the multidimensional output from the convolution layers into a 1D array to passes to the Dense layers.
+    - `view(x.size(0), -1)`: This layer flattens the multidimensional output from the convolution layers into a 1D array to passes to the Dense layers.
     """)
 
     st.markdown("### Dense layer")
     st.write("""
-    - `Dense(128, activation='relu')`: A fully connected layer with 128 nodes that processes the extracted features from the final convolutional layer 
+    - `Linear(conv_output_size, 128)`: A fully connected layer with 128 nodes that processes the extracted features from the final convolutional layer 
     and learns higher-level patterns for prediction.
     """)
 
@@ -221,7 +246,7 @@ def display_model_description():
 
     st.markdown("### Output layer")
     st.write("""
-    - `Dense(1)`: The final output layer returns a single value, predicting the event's start time.
+    - `Linear(128, 1)`: The final output layer returns a single value, predicting the event's start time.
     """)
     
 def model_working_process():
@@ -317,10 +342,8 @@ def model_working_process():
     """)
     
     st.write("""
-    The final results show **val_loss of 7391.5918** and **Val_Accuracy of 8.8421e-04**, demonstrating the model’s strong performance in accurately identifying the event point. This indicates that the model can successfully detect the precise location of the event point within the section where the event occurs.
+    The final results show **MAE loss of 82.8339**.
     """)
-    
-    st.caption("""Accuracy Function Definition : Consider a prediction accurate if the difference between the predicted and actual value is less than or equal to 0.1""")
     
 if __name__ == "__main__":
     display_sidebar_toc()
