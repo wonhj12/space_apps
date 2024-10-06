@@ -13,15 +13,15 @@
 ### Data Processing
 - **Slicing with overlaps** : To predict seismic events using deep learning, we initially had a small dataset of 77 samples, which increased to about 200 after adding IRIS data. This was still insufficient, so we augmented the data by slicing the seismic data into 6000-step intervals and overlapping points. Shifting the starting point by 100 steps generated multiple samples, ensuring enough data for training.
   
-## Model Architecture
-### Why 1D-CNN?
+### Model Architecture
+#### Why 1D-CNN?
 - **Lightweight & efficient** : 1D-CNNs are computationally efficient and ideal for reducing energy costs while enabling fast predictions with minimal CPU resources, making them effective for detecting seismic event times.
 - **Time series pattern recognition** : 1D-CNNs learn key patterns in time series data by capturing local correlations through convolution operations, making them effective at detecting changes over time.
 - **Automatic feature extraction** : 1D-CNNs extract important features using filters, offering a more efficient approach than manual feature design, allowing the model to learn various patterns automatically.
 
 
-## How To Use CNN
-### Classification
+### How To Use CNN
+#### Classification
 - The task is to classify whether a 6000-step section contains an event point (binary classification).
 A 1D-CNN processes the sequences to learn spatial features, using ReLU activations in the convolution and pooling layers. The output passes through a fully connected layer for binary classification. CrossEntropyLoss and the Adam optimizer are used for training. The model achieved a Validation Loss of 0.0936 and a Validation Accuracy of 0.9782, showing high accuracy in detecting event points.
 
