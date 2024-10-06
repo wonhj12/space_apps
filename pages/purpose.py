@@ -62,13 +62,26 @@ st.markdown("""
         <div style="flex: 2;">
             <p style="color:grey">Particularly in the case of <b>Mars</b>, it provides insights into how all rocky planets, including Earth, were formed.</p>
             <p style="color:grey">The SEIS (Seismic Experiment for Interior Structure) project began its work in 2019 to explore seismic activity on Mars. By 2020, it had detected over 400 seismic events.</p>
-            </div>
+        </div>
     </div>
         <ul>
             <li>InSight Lander was a Mars mission that aimed to study the planet's interior. One of the most significant challenges was the need to conserve power for long-range data transmission to Earth. The harsh space environment, filled with various types of noise, also posed a risk of data corruption, making the development of efficient algorithms for processing and transmitting seismic data essential.</li>
             <li>In order to unravel the mysteries of Mars' interior, scientists had to overcome the challenges of long-range data transmission and the harsh space environment. By developing efficient algorithms and prioritizing power conservation, the spacecraft can be able to successfully transmit seismic data back to Earth.</li>
         </ul>
-        <h2 style="color : #d38856">
+        <h2 style="color : #d38856">Seismic exploration on the Moon</h2>
+        <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+        <div style="flex: 1; margin-right: 30px;">
+            <figure>
+                <img src="https://img6.yna.co.kr/etc/inner/KR/2019/05/13/AKR20190513141751009_01_i_P4.jpg" style="width: 400px;"/>
+                <figcaption style="text-align:center; font-size:14px;color:#555;">Seismic Exploration on the Moon</figcaption>
+            </figure>
+        </div>
+        <div style="flex: 2;">
+            <p style="color:grey">The Moon is only one-fourth the radius of Earth, so it was believed that geological activity had already ceased a long time ago.</p>
+            <p style="color:grey">It has been revealed that earthquakes still occur due to the contraction of the Moon's interior.</p>
+        </div>
+    </div>
+    <h2 style="color : #d38856">
             Importance of Collecting Seismic Waves from Celestial Bodies
         </h2>
         <p>Seismic waves travel at different speeds and shapes as they pass through various materials within a planet. This provides a method to study <b>the internal structure</b> of the planet using seismic waves.</p>
