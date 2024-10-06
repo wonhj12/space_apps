@@ -43,9 +43,8 @@ def display_reference():
             Image Sources
         </h2>
     </div>""", unsafe_allow_html=True)
-    st.markdown("1. Astronaut in moon : [Nvida](https://blogs.nvidia.co.kr/blog/nasa_deeplearning/)")
-    st.markdown("2. Seismic Exploration on Mars : [Space Apps Challenge](https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/)")
-    st.markdown("3. Seismic Exploration on the Moon : [달에서도 지구처럼 지각변동으로 지진 진행 중](https://www.yna.co.kr/view/AKR20190513141751009)")
+    st.markdown("1. Seismic Exploration on Mars : [Space Apps Challenge](https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/)")
+    st.markdown("2. Seismic Exploration on the Moon : [달에서도 지구처럼 지각변동으로 지진 진행 중](https://www.yna.co.kr/view/AKR20190513141751009)")
 
     # 텍스트 출처
     st.markdown("""
