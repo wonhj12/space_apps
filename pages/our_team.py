@@ -93,11 +93,9 @@ def display_team():
     
     # 출처를 기재하는 코드
     st.markdown("### Image Sources")
-    st.markdown("1. Lunar Surface : [pixabay](https://pixabay.com/ko/photos/달-표면-월석-문-자동차-11088/)")
-    st.markdown("2. Seismic Exploration on Mars : [NASA’s InSight Reveals the Deep Interior of Mars](https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/)")
-    st.markdown("3. Mars Seismic : [POSTED INRESEARCH SPOTLIGHTS Powerful Impact Provides Insight into Deep Structure of Mars](https://eos.org/research-spotlights/powerful-impact-provides-insight-into-deep-structure-of-mars)")
-    st.markdown("4. Loading Screen : [FlatIcon](https://www.flaticon.com/)")
-    
+    st.markdown("1. Astronaut in moon : [Nvida](https://blogs.nvidia.co.kr/blog/nasa_deeplearning/)")
+    st.markdown("2. Seismic Exploration on Mars : [Space Apps Challenge](https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/)")
+
     # 텍스트 출처
     st.markdown("### Text Reference")
     st.markdown("1. [Seismic Detection Across the Solar System](https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/)")
