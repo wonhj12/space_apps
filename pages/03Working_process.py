@@ -214,12 +214,12 @@ def display_model_description():
     and learns higher-level patterns for prediction.
     """)
 
-    st.markdown("#### **Dropout Layer**")
+    st.markdown("### Dropout layer")
     st.write("""
-    - `Dropout(0.5)`: To prevent overfitting, dropout is applied, randomly disabling 50% of the nodes during training.
+    - `Dropout(0.5)`: Dropout is applied to prevent overfitting, randomly disabling 50% of the nodes during training.
     """)
 
-    st.markdown("#### **Output Layer**")
+    st.markdown("### Output layer")
     st.write("""
     - `Dense(1)`: The final output layer returns a single value, predicting the event's start time.
     """)
@@ -234,7 +234,10 @@ def model_working_process():
     </div>""", unsafe_allow_html=True)
     
     st.write("""
-    A day’s worth of data (one day) consists of 570,000 sequence data points. However, since it was too large to train the model with all the data at once, we decided to first divide the data into 6000 sections and determine whether each section contains an event point. Afterward, the exact event point was identified in the sections predicted to have an event, thus achieving the final goal.
+    A day’s worth of data (one day) consists of about 570,000 sequence data points. 
+    However, this was too large to train all these data at once, 
+    so we decided to slice the data into sections of 6000 points and determine whether each section contains an event point. 
+    Afterward, the exact event point was identified from the sections predicted, thus achieving the final goal.
     """)
     
     st.markdown("""

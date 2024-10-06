@@ -6,6 +6,7 @@ import tensorflow as tf
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from controller.cnn_classification_model import OneDCNNClassificationModel
+from controller.event_finder_model import OneDCNNRegressionModel
 from controller.prepare_data import slice_data
 
 # h5 모델 불러오기
@@ -28,13 +29,13 @@ def load_h5_model(model_path):
         return None
 
 # pytorch 모델 불러오기
-def load_pth_model(model_path):
+def load_pth_model(model_path, model):
     try:
         # 모델 파일이 존재하는지 확인
         if not os.path.exists(model_path):
             raise FileNotFoundError('Model does not exist')
 
-        model = OneDCNNClassificationModel(input_channels=6000)
+        # model = OneDCNNClassificationModel(input_channels=6000)
         model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu'), weights_only=True))
         model.eval()
 
@@ -54,8 +55,9 @@ def load_pth_model(model_path):
 # 일정 거리 내에 뭉쳐있으면 그 중 가장 높은 것만 반환
 def predict_classification(velocity, sampling_rate, segment_length):
     # Classification 모델 클래스 정의
-    model_classification = load_pth_model('/home/yang1115/models/original_seismic_classifier.pth')
-    # model_classification = load_pth_model('./model_classification.pth')
+    model = OneDCNNClassificationModel(input_channels=segment_length)
+    model_classification = load_pth_model('/home/yang1115/models/original_seismic_classifier.pth', model)
+    # model_classification = load_pth_model('./model_classification.pth', model)
 
     # segment_length 크기로 나눠서 classification 예측 진행
     classified_segments = []
@@ -159,17 +161,16 @@ def predict_event_time(segments, velocity, segment_length):
     test_scaled = scaler.transform(selected_values.reshape(-1, selected_values.shape[-1])).reshape(selected_values.shape)
 
     # # 이벤트 모델 로드
-    model_h5 = load_h5_model('/home/yang1115/models/event_time_finder.h5')
-    # model_h5 = load_h5_model('./event_time_finder.h5')
+    model = OneDCNNRegressionModel(input_channels=segment_length)
+    # model_event = load_pth_model('./event_time_finder_1DCNN.pth', model)
+    model_event = load_pth_model('./home/yang1115/models/event_time_finder_1DCNN.pth', model)
 
-    # # 모델 있으면 예측 진행
-    # # 모델 없으면 None 반환
-    if model_h5:
-        predictions = model_h5.predict(test_scaled)
-        return predictions.flatten()
-    else:
-        print('Model could not be loaded.')
-        return None
+    # 모델을 사용하여 예측값 생성
+    segment = torch.tensor(test_scaled).float()
+    with torch.no_grad():
+        outputs = model_event(segment)
+
+    return outputs
 
 # 데이터 예측
 def predict(velocity, sampling_rate, segment_length = 6000):
