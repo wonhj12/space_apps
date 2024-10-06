@@ -37,7 +37,7 @@ def display_sidebar_toc():
     st.sidebar.markdown("""
     1. <a class="toc-link" href="#data-processing"> Data Processing </a>
     2. <a class="toc-link" href="#model-architecture"> Model Architecture </a>
-    2. <a class="toc-link" href="#How To Use CNN"> Model Architecture </a>
+    3. <a class="toc-link" href="#How To Use CNN"> How To Use CNN </a>
     """, unsafe_allow_html=True)
 
 
