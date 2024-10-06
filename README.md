@@ -1,4 +1,6 @@
 # NASA Space Apps Challenge - Team 구구덕
+[Streamlit Dashboard](http://guguduck.earth/)
+
 ## 1. Background
 ### Main Challenges to Solve
 - **High Cost** : Transmitting the vast amounts of data collected by spacecraft from celestial bodies back to Earth is very costly, as it requires a significant amount of power to send the data, which is greatly affected by distance.
@@ -59,8 +61,35 @@ def create_1d_cnn_model(input_shape):
 |             | MSE                  | 2407.4464 |
 
 ---
+## 3. Tech Spec
 
-## 3. Our Team
+| Category        | Details                    |
+|-----------------|----------------------------|
+| Main Language   | Python                     |
+| Dashboard       | Streamlit                  |
+| Model           | PyTorch, TensorFlow        |
+| Model Training  | KT Cloud, Jupyter Notebook |
+| Server & DNS    | GCP VM Machine, Porkbun    |
+| Collaboration   | Notion, GitHub             |
+
+
+---
+## 4. Installation & Execution
+### Server
+[Streamlit Dashboard](http://guguduck.earth/)
+
+### How to Test Locally
+```
+# install dependencies
+pip install -r requirements.txt
+
+# run dashboard
+streamlit run predict.py
+```
+
+
+--- 
+## 5. Our Team
 ### Team Member
 <table>
   <tbody>
