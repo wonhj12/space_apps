@@ -55,6 +55,7 @@ def detect_seismic(file):
                     continue
             event = event_times[i] / sampling_rate
             rel_time = event + start
+            print(f'rel_time: {rel_time}')
             if not event_label_added:
                 ax.axvline(x=rel_time, color='red', linestyle='-', label='Rel. Arrival')
                 event_label_added = True
