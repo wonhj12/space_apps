@@ -4,7 +4,6 @@ import json
 from controller.prepare_data import read_mseed_data
 from controller.model import predict
 from streamlit_lottie import st_lottie
-from streamlit_option_menu import option_menu
 
 # Lottie 애니메이션 로딩
 def load_lottiefile(filepath: str):
@@ -62,9 +61,12 @@ def detect_seismic(file):
 
 st.set_page_config(page_title="Guguduck", layout="wide")
 
-
-
-st.title('Seismic Detection')
+st.markdown("""
+<div>
+    <h1 style="color : #d38856">
+        Seismic Detection
+    </h1>
+</div>""", unsafe_allow_html=True)
 
 # mseed 파일 업로드
 uploaded_file = st.file_uploader('Upload Seismic File', label_visibility = 'hidden', type=['mseed'], accept_multiple_files=False)
