@@ -59,7 +59,7 @@ def display_team():
         st.header("이원준")
         st.image("images/이원준.png", caption="Team Member")
         st.write("""
-        **Position:** Lead Scientist  
+        **Position:** Software Engineer  
         """)
 
     # 팀원 2 정보
@@ -78,7 +78,7 @@ def display_team():
         st.header("최다영")
         st.image("images/최다영.png", caption="Team Member")
         st.write("""
-        **Position:** Lead Scientist   
+        **Position:** Software Engineer   
         """)
 
     # 팀원 2 정보
@@ -95,12 +95,14 @@ def display_team():
     st.markdown("### Image Sources")
     st.markdown("1. Astronaut in moon : [Nvida](https://blogs.nvidia.co.kr/blog/nasa_deeplearning/)")
     st.markdown("2. Seismic Exploration on Mars : [Space Apps Challenge](https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/)")
+
     # 텍스트 출처
     st.markdown("### Text Reference")
     st.markdown("1. [Seismic Detection Across the Solar System](https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/)")
     st.markdown("2. [NASA’s InSight Detects First Likely ‘Quake’ on Mars](https://science.nasa.gov/missions/insight/nasas-insight-detects-first-likely-quake-on-mars/)")
     st.markdown("3. [NASA’s InSight Reveals the Deep Interior of Mars](https://www.jpl.nasa.gov/news/nasas-insight-reveals-the-deep-interior-of-mars/)")
     st.markdown("4. [Mars Seismic Deployment Lays Groundwork for Future Planetary Missions](https://www.seismosoc.org/news/mars-seismic-deployment-lays-groundwork-for-future-planetary-missions/)")
+    st.markdown("5. [InSight Lander](https://science.nasa.gov/mission/insight/)")
     
     st.markdown("### Reference AI")
     st.markdown("1. [Chat GPT](https://chatgpt.com/)")

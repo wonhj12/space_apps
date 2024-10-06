@@ -10,12 +10,12 @@ from controller.cnn_classification_model import OneDCNNClassificationModel
 def load_h5_model():
     try:
         # 모델 파일이 존재하는지 확인
-        if not os.path.exists('./model.h5'):
+        if not os.path.exists('home/yang1115/models/event_time_finder.h5'):
             raise FileNotFoundError('Model does not exist')
         
         # 모델 로드
         model = tf.keras.models.load_model(
-            './model.h5', 
+            'home/yang1115/models/event_time_finder.h5', 
             custom_objects={'mse': tf.keras.losses.MeanSquaredError()}
         )
     
@@ -52,7 +52,7 @@ def load_pth_model(model_path):
 # 일정 거리 내에 뭉쳐있으면 그 중 가장 높은 것만 반환
 def predict_classification(velocity, sampling_rate):
     # Classification 모델 클래스 정의
-    model_classification = load_pth_model('./model_classification.pth')
+    model_classification = load_pth_model('home/yang1115/models/original_seismic_classifier.pth')
 
     # 데이터 slicing 길이
     segment_length = 6000

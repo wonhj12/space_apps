@@ -244,7 +244,6 @@ def model_working_process():
         </h2>
     </div>""", unsafe_allow_html=True)
     
-    
     st.write("""
     This task involves classifying which of the 6000 sections contains an event point. It is a binary classification problem, and the goal is to predict whether a given section includes an event point.
     """)
@@ -266,7 +265,7 @@ def model_working_process():
     st.write("""
     Ultimately, the model achieves **a Validation Loss of 0.0936** and **a Validation Accuracy of 0.9782**, demonstrating a very high accuracy in classifying whether or not a section contains an event point.
     """)
-    
+
     st.image("images/classification_1.png")
     st.image("images/classification_2.png")
     
@@ -277,7 +276,7 @@ def model_working_process():
             2. Find the event point
         </h1>
     </div>""", unsafe_allow_html=True)
-    
+
     
     st.write("""
     After predicting which sections contain an event point in the previous step, the next task is to identify the exact point where the event occurs within the predicted section.""")
