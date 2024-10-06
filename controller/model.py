@@ -54,8 +54,8 @@ def load_pth_model(model_path):
 # 일정 거리 내에 뭉쳐있으면 그 중 가장 높은 것만 반환
 def predict_classification(velocity, sampling_rate, segment_length):
     # Classification 모델 클래스 정의
-    # model_classification = load_pth_model('/home/yang1115/models/original_seismic_classifier.pth')
-    model_classification = load_pth_model('./model_classification.pth')
+    model_classification = load_pth_model('/home/yang1115/models/original_seismic_classifier.pth')
+    # model_classification = load_pth_model('./model_classification.pth')
 
     # segment_length 크기로 나눠서 classification 예측 진행
     classified_segments = []
@@ -159,8 +159,8 @@ def predict_event_time(segments, velocity, segment_length):
     test_scaled = scaler.transform(selected_values.reshape(-1, selected_values.shape[-1])).reshape(selected_values.shape)
 
     # # 이벤트 모델 로드
-    # model_h5 = load_h5_model('/home/yang1115/models/event_time_finder.h5')
-    model_h5 = load_h5_model('./event_time_finder.h5')
+    model_h5 = load_h5_model('/home/yang1115/models/event_time_finder.h5')
+    # model_h5 = load_h5_model('./event_time_finder.h5')
 
     # # 모델 있으면 예측 진행
     # # 모델 없으면 None 반환
