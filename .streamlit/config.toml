@@ -2,4 +2,4 @@
 base="dark"
 primaryColor="#800080"  # 또는 원하는 퍼플 색상 코드
 secondaryBackgroundColor="dark"  # 어두운 색상으로 변경
-textColor="#FFFFFF"  # 일반적으로 어두운 배경에는 흰색 텍스트가 잘 보입니다.
+textColor="#dedede"  # 일반적으로 어두운 배경에는 흰색 텍스트가 잘 보입니다.

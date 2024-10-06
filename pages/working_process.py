@@ -1,10 +1,6 @@
 import streamlit as st
 
-
-
-
 # st.image("https://d2pn8kiwq2w21t.cloudfront.net/images/missionswebPIA22743-16_rfbG1OZ.2e16d0ba.fill-548x400-c50.jpg",width=300)
-
 
 def display_sidebar_toc():
     st.markdown("""
@@ -41,9 +37,21 @@ def display_sidebar_toc():
 
 
 def Data_processing():
-    st.title("Working Process")
-    st.markdown("# Data Processing", unsafe_allow_html=True)
-    
+    # st.title("Working Process")
+    # st.markdown("# Data Processing", unsafe_allow_html=True)
+    # st.markdown("""
+    # <div>
+    #     <h1 style="color : #d38856; text-align: center">
+    #         Working Process
+    #     </h1>
+    # </div>""", unsafe_allow_html=True)
+    # st.write('###')
+    st.markdown("""
+    <div>
+        <h1 style="color : #d38856">
+            Data Processing
+        </h1>
+    </div>""", unsafe_allow_html=True)
 
 
     # 두 개의 열 생성
@@ -52,90 +60,103 @@ def Data_processing():
     # 두 번째 열에 텍스트 배치
     with col1:
         st.write("""
-        Our goal is to predict the meaningful data points where seismic events occur. 
-        To do this effectively, we decided to use deep learning. 
-        \nHowever, deep learning requires a large dataset to produce significant results. 
-        When we looked at the Lunar data, we only had 77 samples available, which was not enough to predict event points using deep learning. 
-        Even after adding additional data provided by NASA, we only managed to collect around 200 samples. 
+        Our goal is to predict meaningful data points where seismic events occur. 
+        To efficiently achieve the goal, we decided to use deep learning. 
+        \nHowever, deep learning requires large dataset to produce significant results. 
+        Unfortunately, we only had 77 samples available, which was not sufficient enough for meaningful learning. 
+        Even with additional data provided by IRIS, we only managed to collect around 200 samples.
         Therefore, we decided to augment the data ourselves.
         """)
 
     # 첫 번째 열에 이미지 배치
     with col2:
-        st.image("images/Lunar.png", width=200, caption="lunar data")
+        st.image("images/Lunar.png", width=200, caption="lunar")
         
-    st.subheader("Slicing With OverLap")
+    # Slicing with overlap
+    st.markdown("""
+    <div>
+        <h2 style="color : #d38856">
+            Slicing data with overlaps
+        </h2>
+    </div>""", unsafe_allow_html=True)
 
-    st.write("1. We loaded the existing CSV file and used the 'slicing' method along with overlap to generate new samples.")
-
+    st.write("""
+    01. We loaded the data from MSEED file to generate new training samples. 
+    We sliced and overlapped the points to maximize the accuracy.
+    """)
     reading_code = """event_time_rel = label_row['time_rel(sec)'].values[0]"""
-
     st.code(reading_code,language="python")
 
     st.markdown("""
-    2. Based on the file name, we extract the seismic event time `event_time_rel` and perform slicing starting 
-    from `event_index - (time_step // 2)`. First, we decide how many data segments we will divide a single file (one day) 
-    into with `time_step = 6000`, and store these segments in an array. Then, we use `event_time_rel` as the reference point and extract a fixed-length data segment centered around this event time.
+    02. We extracted the seismic event time `event_time_rel` from the catalog and began slicing the data starting from `event_index - (time_step // 2)`. 
+    We decided to slice the data into intervals of 6000 steps, so we've set `time_step = 6000` to slice and save the data into an array. 
+    Then, we used `event_time_rel` as the reference point to extract several points from the sliced data.
     """)
-    slice_code = """for start_index in range(max(0, event_index - time_step // 2), min(len(velocity) - time_step + 1, event_index + 1)):
-                        end_index = start_index + time_step
+    slice_code = """
+    for start_index in range(max(0, event_index - time_step // 2), min(len(velocity) - time_step + 1, event_index + 1)):
+        end_index = start_index + time_step
     """
-
-    st.code(reading_code,language="python")
-
-    st.write("""3. After slicing, we shift the starting point by `overlap_step` (100) and repeatedly generate new samples. 
-            Since overlapping points are included in the sampling process, we are able to create more samples from the same data.""")
-    slice_code = """ for start_index in range(max(0, event_index - time_step // 2), min(len(velocity) - time_step + 1, event_index + 1), overlap_step):
-                        end_index = start_index + time_step
-    """
-
-    st.code(reading_code,language="python")
-    st.markdown("<hr style='border:none;'>", unsafe_allow_html=True)
-    # col1, col2 = st.columns([2, 1]) 
-    # with col1:
-        # st.write("""
-        # We were able to successfully increase the dataset from 77 samples to around 230,000, completing the preparation process for effective deep learning training.""")
-
-    # with col2:
-        # st.code("""
-        # X_train, y_train
-        # (221336, 6000), (221336,)
-        # X_test, y_test
-        # (9096, 6000), (9096,)
-        # """)  
+    st.code(slice_code,language="python")
 
     st.write("""
-        We were able to successfully increase the dataset from 77 samples to around 230,000, completing the preparation process for effective deep learning training.""")
+    03. After the first slice, we shifted the starting point by factor of `overlap_step = 100` and repeatedly generated new samples. 
+    Since we overlapped the data points while slicing, we were able to create enough samples""")
+    overlap_code = """
+    for start_index in range(max(0, event_index - time_step // 2), min(len(velocity) - time_step + 1, event_index + 1), overlap_step):
+        end_index = start_index + time_step
+    """
+    st.code(overlap_code,language="python")
 
+    st.markdown("###", unsafe_allow_html=True)
+
+    st.write("""
+    We were able to successfully increase the dataset from 77 samples to around 230,000, 
+    completing the preparation process for effective deep learning training.""")
 
     st.code("""
-        X_train, y_train = (221336, 6000), (221336,)
-        X_test, y_test = (9096, 6000), (9096,)
-        """)  
+    X_train, y_train = (221336, 6000), (221336,)
+    X_test, y_test = (9096, 6000), (9096,)
+    """)  
 
 
 def display_model_description():
-    st.markdown("# Model Architecture", unsafe_allow_html=True)
+    st.markdown("""
+    <div>
+        <h1 style="color : #d38856">
+            Model Architecture
+        </h1>
+    </div>""", unsafe_allow_html=True)
+
+    st.markdown("""
+    <div>
+        <h2 style="color : #d38856">
+            Why 1D-CNN?
+        </h2>
+    </div>""", unsafe_allow_html=True)
+
+    st.markdown("### 1. Lightweight and computationally efficient")
+    st.write("""
+    1D-CNNs are lightweight and requires small CPU resource, offering both low computational cost and high efficiency. 
+    The purpose of this challenge was to detect event times in order to reduce the energy cost of sending the data, so we decided to use the lightest model that we can find.
+    In addition, to deploy the model through Google Cloud Platform we had to perform predictions quickly with CPU resources. 
+    Among the models used for time series analysis, 1D-CNN approach proved to be the most effective.
+    """)
     
-    st.subheader("Why 1D-CNN?")
-    st.markdown("#### **1) Temporal Pattern Recognition**")
+    st.markdown('### 2. Temporal pattern recognition')
+    
     st.write("""
     1D-CNNs are capable of learning key patterns and features in time series data. 
-    By using convolution operations, they capture local correlations over time, making them effective in detecting changes in time series data.
+    By using convolution operations, it is possible to capture local correlations over time, 
+    making it effective to detect changes in time series data.
     """)
 
-    st.markdown("#### **2) Efficient Feature Extraction**")
+    st.markdown("### 3. Efficient feature extraction")
     st.write("""
-    1D-CNNs can automatically extract important features from time series data using filters (kernels). 
+    1D-CNNs can automatically extract important features from time series data through filters (kernels). 
     This is more efficient than manually designing features and allows the model to learn various patterns.
     """)
 
-    st.markdown("#### **3) Lightweight and Computationally Efficient**")
-    st.write("""
-    1D-CNNs are lightweight enough to be loaded and executed even using CPU resources, offering both low computational cost and efficiency. 
-    In order to deploy the model through GCP, it needed to perform predictions quickly even with CPU resources. 
-    Among the models used for time series analysis, this approach proved to be the most effective.
-    """)
+    st.markdown("###", unsafe_allow_html=True)
     
     code_string = """
     # 1D-Model Definition
@@ -157,30 +178,37 @@ def display_model_description():
     st.code(code_string, language="python")
     st.image("images/models/1dCNN.png", caption="1D-CNN Architecture Diagram")
     
-    st.divider()
-    st.subheader("Model Structure")
-    st.markdown("#### **Convolution Layer**")
+    # Model structure
+    st.markdown("""
+    <div>
+        <h2 style="color : #d38856">
+            Model structure
+        </h2>
+    </div>""", unsafe_allow_html=True)
+    
+    st.markdown("### Convolution layer")
+
     st.write("""
     - `Conv1D(filters=64, kernel_size=3, activation='relu', input_shape=input_shape)`: 
     This 1D convolutional layer uses 64 filters to learn patterns from the input data. 
-    The `kernel_size=3` means the layer processes three consecutive data points (representing 3 time intervals in the time series). 
+    The `kernel_size=3` shows that the layer processes three consecutive data points (representing 3 time intervals in the time series). 
     `input_shape` specifies the shape of the input, which includes the length and the number of channels of the time series data.
     """)
 
-    st.markdown("#### **MaxPooling1D Layer**")
+    st.markdown("### MaxPooling1D layer")
     st.write("""
     - `MaxPooling1D(pool_size=2)`: This max-pooling layer uses a pool size of 2, reducing the size of the input data by half. 
-    This helps speed up learning and prevents overfitting.
+    This helps the model to speed up learning and prevents overfitting.
     - The Conv + MaxPooling layers are repeated 3 times.
     - Activation function: **ReLU**
     """)
 
-    st.markdown("#### **Flatten Layer**")
+    st.markdown("### Flatten layer")
     st.write("""
-    - `Flatten()`: This layer flattens the multidimensional output from the convolution layers into a 1D array to pass to the Dense layers.
+    - `Flatten()`: This layer flattens the multidimensional output from the convolution layers into a 1D array to passes to the Dense layers.
     """)
 
-    st.markdown("#### **Dense Layer**")
+    st.markdown("### Dense layer")
     st.write("""
     - `Dense(128, activation='relu')`: A fully connected layer with 128 nodes that processes the extracted features from the final convolutional layer 
     and learns higher-level patterns for prediction.
