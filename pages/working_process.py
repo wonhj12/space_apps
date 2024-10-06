@@ -1,5 +1,52 @@
 import streamlit as st
 
+def add_bg_from_url():
+    st.markdown(
+         f"""
+         
+         <style>
+         .stApp {{
+             background-color: #1f1f1f;
+             background-attachment: fixed;
+             background-size: cover
+         }}
+         div, h1, h2, h3, h4, h5, h6, p, span {{
+            color: white !important;  /* 텍스트 색상을 흰색으로 강제 설정 */
+        }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+    
+def add_custom_styles():
+    st.markdown(
+        """
+        <style>
+        /* 사이드바 배경색을 검은색으로 설정 */
+        [data-testid="stSidebar"] > div {{
+            background-color: black;
+        }}
+        
+        /* 사이드바 텍스트 색상을 흰색으로 설정 */
+        [data-testid="stSidebar"] * {{
+            color: white;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    
+
+# 스타일 적용
+add_custom_styles()
+
+add_bg_from_url() 
+
+st.title("Challenge Purpose")
+
+st.markdown("### **Background**")
+# st.image("https://d2pn8kiwq2w21t.cloudfront.net/images/missionswebPIA22743-16_rfbG1OZ.2e16d0ba.fill-548x400-c50.jpg",width=300)
 
 def display_sidebar_toc():
     st.markdown("""
@@ -63,8 +110,14 @@ def Data_processing():
     st.write("1. We loaded the existing CSV file and used the 'slicing' method along with overlap to generate new samples.")
 
     reading_code = """event_time_rel = label_row['time_rel(sec)'].values[0]"""
+    styled_code = f"""
+    <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
+    <code style="color: black;">{reading_code}</code>
+    </div>
+    """
 
-    st.code(reading_code,language="python")
+    # HTML로 렌더링
+    st.markdown(styled_code, unsafe_allow_html=True)
 
     st.markdown("""
     2. Based on the file name, we extract the seismic event time `event_time_rel` and perform slicing starting 
@@ -75,15 +128,29 @@ def Data_processing():
                         end_index = start_index + time_step
     """
 
-    st.code(reading_code,language="python")
+    styled_code = f"""
+    <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
+    <code style="color: black;">{slice_code}</code>
+    </div>
+    """
+
+    # HTML로 렌더링
+    st.markdown(styled_code, unsafe_allow_html=True)
 
     st.write("""3. After slicing, we shift the starting point by `overlap_step` (100) and repeatedly generate new samples. 
             Since overlapping points are included in the sampling process, we are able to create more samples from the same data.""")
-    slice_code = """ for start_index in range(max(0, event_index - time_step // 2), min(len(velocity) - time_step + 1, event_index + 1), overlap_step):
+    overlap_code = """ for start_index in range(max(0, event_index - time_step // 2), min(len(velocity) - time_step + 1, event_index + 1), overlap_step):
                         end_index = start_index + time_step
     """
 
-    st.code(reading_code,language="python")
+    styled_code = f"""
+    <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
+    <code style="color: black;">{overlap_code}</code>
+    </div>
+    """
+
+    # HTML로 렌더링
+    st.markdown(styled_code, unsafe_allow_html=True)
     st.divider()
     col1, col2 = st.columns([2, 1]) 
     with col1:
@@ -91,12 +158,21 @@ def Data_processing():
         We were able to successfully increase the dataset from 77 samples to around 230,000, completing the preparation process for effective deep learning training.""")
 
     with col2:
-        st.code("""
+        result_code = f"""
         X_train, y_train
         (221336, 6000), (221336,)
         X_test, y_test
         (9096, 6000), (9096,)
-        """)  
+        """
+        
+        styled_code = f"""
+        <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
+        <code style="color: black;">{result_code}</code>
+        </div>
+        """
+
+        # HTML로 렌더링
+        st.markdown(styled_code, unsafe_allow_html=True)
 
 
 def display_model_description():
