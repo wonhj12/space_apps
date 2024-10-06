@@ -38,7 +38,7 @@ def predict_classification(velocity, sampling_rate, segment_length):
     # Classification 모델 클래스 정의
     model = OneDCNNClassificationModel(input_channels=segment_length)
     model_classification = load_pth_model('/home/yang1115/models/original_seismic_classifier.pth', model)
-    # model_classification = load_pth_model('./model_classification.pth', model)
+    # model_classification = load_pth_model('./original_seismic_classifier.pth', model)
 
     # segment_length 크기로 나눠서 classification 예측 진행
     classified_segments = []
@@ -66,7 +66,7 @@ def predict_classification(velocity, sampling_rate, segment_length):
     if classified_segments:
         classified_segments = sorted(classified_segments, key=lambda x: x[0])
         current_start, current_end, index = classified_segments[0]
-        non_overlapping_segments.append((current_start, current_end))
+        non_overlapping_segments.append((current_start, current_end, index))
         for start, end, index in classified_segments[1:]:
             if start < current_end:  # 겹치는 경우만 제거
                 current_end = max(current_end, end)
