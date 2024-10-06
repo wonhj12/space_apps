@@ -1,22 +1,5 @@
 import streamlit as st
-def add_bg_from_url():
-    st.markdown(
-         f"""
-         <style>
-         .stApp {{
-             background-color: #1f1f1f;
-             background-attachment: fixed;
-             background-size: cover
-         }}
-         div, h1, h2, h3, h4, h5, h6, p, span {{
-            color: white !important;  /* 텍스트 색상을 흰색으로 강제 설정 */
-        }}
-         </style>
-         """,
-         unsafe_allow_html=True
-     )
 
-add_bg_from_url() 
 
 st.title("Challenge Purpose")
 
