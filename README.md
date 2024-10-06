@@ -13,13 +13,13 @@
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/054db3b9-01cc-4593-af45-a80c0c3f142c" width="100px;" alt=""/><br /><sub><b>Lead Scienctist : 원하진</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/147d16dc-6ff6-4810-bf60-ed9c2460aca9" width="100px;" alt=""/><br /><sub><b>Software Engineer : 양은서</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/61900f80-f3ce-4ffb-b48e-b5a9a6a96029" width="100px;" alt=""/><br /><sub><b>Software Engineer : 최다영</b></sub></a><br /></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/054db3b9-01cc-4593-af45-a80c0c3f142c" width="100px;" alt=""/><br /><sub><b>Lead Scienctist : 원하진</b></sub><br /></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/147d16dc-6ff6-4810-bf60-ed9c2460aca9" width="100px;" alt=""/><br /><sub><b>Software Engineer : 양은서</b></sub><br /></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/61900f80-f3ce-4ffb-b48e-b5a9a6a96029" width="100px;" alt=""/><br /><sub><b>Software Engineer : 최다영</b></sub><br /></td>
      <tr/>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> Software Engineer : </b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>Software Engineer : </b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>Software Engineer : </b></sub></a><br /></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/0114a8c7-55a0-4203-84a1-983b6090fb60" width="100px;" alt=""/><br /><sub><b> Software Engineer : 김태관</b></sub><br /></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/fa27ffea-702c-4c36-9767-e7bf8d04caf2" width="100px;" alt=""/><br /><sub><b>Software Engineer : 김태우</b></sub><br /></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/d4aec8e2-d28e-4e6a-855d-cd77eb9cc8eb" width="100px;" alt=""/><br /><sub><b>Software Engineer : 이원준</b></sub><br /></td>
     </tr>
   </tbody>
 </table>
