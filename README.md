@@ -8,7 +8,8 @@
 
 ----
 ## 2. Working Process
-https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/?tab=resources
+### Data Source
+[Seismic Detection Across the Solar System](https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/?tab=resources)
 ### Data Processing
 - **Slicing with overlaps** : To predict seismic events using deep learning, we initially had a small dataset of 77 samples, which increased to about 200 after adding IRIS data. This was still insufficient, so we augmented the data by slicing the seismic data into 6000-step intervals and overlapping points. Shifting the starting point by 100 steps generated multiple samples, ensuring enough data for training.
   
