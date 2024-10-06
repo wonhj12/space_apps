@@ -1,6 +1,12 @@
 import streamlit as st
 
 
+st.title("Challenge Purpose")
+
+st.markdown("### **Background**")
+# st.image("https://d2pn8kiwq2w21t.cloudfront.net/images/missionswebPIA22743-16_rfbG1OZ.2e16d0ba.fill-548x400-c50.jpg",width=300)
+
+
 def display_sidebar_toc():
     st.markdown("""
     <style>
@@ -83,18 +89,27 @@ def Data_processing():
     """
 
     st.code(reading_code,language="python")
-    st.divider()
-    col1, col2 = st.columns([2, 1]) 
-    with col1:
-        st.write("""
+    st.markdown("<hr style='border:none;'>", unsafe_allow_html=True)
+    # col1, col2 = st.columns([2, 1]) 
+    # with col1:
+        # st.write("""
+        # We were able to successfully increase the dataset from 77 samples to around 230,000, completing the preparation process for effective deep learning training.""")
+
+    # with col2:
+        # st.code("""
+        # X_train, y_train
+        # (221336, 6000), (221336,)
+        # X_test, y_test
+        # (9096, 6000), (9096,)
+        # """)  
+
+    st.write("""
         We were able to successfully increase the dataset from 77 samples to around 230,000, completing the preparation process for effective deep learning training.""")
 
-    with col2:
-        st.code("""
-        X_train, y_train
-        (221336, 6000), (221336,)
-        X_test, y_test
-        (9096, 6000), (9096,)
+
+    st.code("""
+        X_train, y_train = (221336, 6000), (221336,)
+        X_test, y_test = (9096, 6000), (9096,)
         """)  
 
 
@@ -179,10 +194,60 @@ def display_model_description():
     st.write("""
     - `Dense(1)`: The final output layer returns a single value, predicting the event's start time.
     """)
-
+    
+def model_working_process():
+    st.markdown("# How To Use CNN?", unsafe_allow_html=True)
+    
+    st.write("""
+    A day’s worth of data (one day) consists of 570,000 sequence data points. However, since it was too large to train the model with all the data at once, we decided to first divide the data into 6000 sections and determine whether each section contains an event point. Afterward, the exact event point was identified in the sections predicted to have an event, thus achieving the final goal.
+    """)
+    
+    st.subheader("1. Classification")
+    
+    st.write("""
+    This task involves classifying which of the 6000 sections contains an event point. It is a binary classification problem, and the goal is to predict whether a given section includes an event point.
+    """)
+    
+    st.write("""
+    - A 1D-CNN (1D Convolutional Neural Network) is used to learn the patterns in each section.
+    Each section, as input, contains multiple sequences of data, and the 1D-CNN processes these sequences to extract important spatial features. 
+    """)
+    
+    st.write("""
+    - ReLU activation functions are used in each convolutional (conv) and pooling layer, adding non-linearity in the intermediate layers to learn complex patterns.
+    The output of the CNN is passed through a fully connected layer and transformed into a binary classification problem. The final output layer produces the result without an activation function. 
+    """)
+    
+    st.write("""
+    - During the training process, the CrossEntropyLoss function is used to minimize the difference between the model’s predictions and the actual values, and the Adam optimizer is used to efficiently update the weights.
+    """)
+    
+    st.write("""
+    Ultimately, the model achieves **a Validation Loss of 0.0936** and **a Validation Accuracy of 0.9782**, demonstrating a very high accuracy in classifying whether or not a section contains an event point.
+    """)
+    
+    st.subheader("2. Find the event point")
+    
+    st.write("""
+    After predicting which sections contain an event point in the previous step, the next task is to identify the exact point where the event occurs within the predicted section.""")
+    
+    st.write("""
+    - In this step, the predicted event sections are input into the CNN model to further refine the detection of the event point.
+    """)
+    
+    st.write("""
+    - The CNN learns patterns related to the event within the section and predicts the probability of the event occurring at each point. It then identifies the point with the highest probability.
+    """)
+    
+    st.write("""
+    The final results show **a Validation Loss of 0.0936** and **a Validation Accuracy of 0.9782**, demonstrating the model’s strong performance in accurately identifying the event point. This indicates that the model can successfully detect the precise location of the event point within the section where the event occurs.
+    """)
+    
 
 if __name__ == "__main__":
     display_sidebar_toc()
     Data_processing()
     st.divider()
     display_model_description()
+    st.divider()
+    model_working_process()
