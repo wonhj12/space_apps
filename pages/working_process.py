@@ -32,7 +32,7 @@ def display_sidebar_toc():
     st.sidebar.markdown("""
     1. <a class="toc-link" href="#data-processing"> Data Processing </a>
     2. <a class="toc-link" href="#model-architecture"> Model Architecture </a>
-    3. <a class="toc-link" href="#How To Use CNN"> How To Use CNN </a>
+    3. <a class="toc-link" href="#how-to-use-cnn"> How To Use CNN </a>
     """, unsafe_allow_html=True)
 
 
@@ -225,7 +225,7 @@ def display_model_description():
     """)
     
 def model_working_process():
-    
+    #how-to-use-cnn
     st.markdown("""
     <div>
         <h1 style="color : #d38856">

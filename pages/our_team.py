@@ -31,8 +31,8 @@ def display_sidebar_toc():
     
     st.sidebar.title("Contents")
     st.sidebar.markdown("""
-    1. <a class="toc-link" href="#Our Team"> Our Team </a>
-    2. <a class="toc-link" href="#Reference"> Reference </a>
+    1. <a class="toc-link" href="#our-team"> Our Team </a>
+    2. <a class="toc-link" href="#reference"> Reference </a>
     """, unsafe_allow_html=True)
 
 def display_team():
@@ -54,7 +54,7 @@ def display_team():
 
     # st.markdown(href, unsafe_allow_html=True)
     
-    
+    #our-team
     st.markdown("""
     <div>
         <h1 style="color : #d38856">
@@ -127,7 +127,7 @@ def display_team():
         **Position:** Software Engineer  
         """)
         
-    
+    #reference
     st.markdown("""
     <div>
         <h1 style="color : #d38856">
