@@ -29,7 +29,7 @@ A 1D-CNN processes the sequences to learn spatial features, using ReLU activatio
 
 
 
-### Find the event point
+#### Find the event point
 - After detecting sections with event points, the next step is to locate the exact event point within the section. A CNN is used to learn patterns and predict the probability of the event at each point, identifying the one with the highest probability. The model achieved a val_loss of 7391.5918 and Val_Accuracy of 0.00088, showing its strong capability to accurately pinpoint the event's location.
 ![9a4ce20021e2ed99294b82e42361e307d628fc02a1b0f8ddac1132fd](https://github.com/user-attachments/assets/ebcdc8fe-e4b2-4599-9944-610b85ba2952)
 
