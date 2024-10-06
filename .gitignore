@@ -4,6 +4,7 @@ venv/*
 
 # models
 *.h5
+*.pth
 
 # pycaches
 */__pycache__
