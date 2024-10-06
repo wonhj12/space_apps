@@ -69,7 +69,6 @@ def predict_classification(velocity, sampling_rate):
             # 끝부분 패딩 (0으로)
             if len(segment) < segment_length:
                 continue
-                #segment = np.pad(segment, (0, segment_length - len(segment)), 'constant')
             
             # 모델을 사용하여 예측값 생성
             segment = torch.tensor(segment).float().unsqueeze(0)
