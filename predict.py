@@ -33,15 +33,22 @@ def detect_seismic(file):
         classified_events, event_times = predict(velocity, sampling_rate, segment_length)
 
         # 시각화
-        fig, ax = plt.subplots(1, 1, figsize=(10, 3))
+        _, ax = plt.subplots(1, 1, figsize=(10, 3))
         ax.plot(times, velocity)
 
         # 이벤트 표시
-        for i in range(min(len(event_times), len(classified_events))):
-            start, end, _ = classified_events[i]
+        for i in range(len(event_times)):
+            if (len(classified_events) > 0):
+                # Classification이 된 경우
+                start, end, _ = classified_events[i]
+                ax.axvspan(start, end, color='yellow', alpha=0.3, label='Predicted Event Segment')
+            else:
+                # Classification이 되지 않은 경우
+                start = i * segment_length / sampling_rate
+                if i % 2 != 0:
+                    continue
             event = event_times[i]
             rel_time = event + start
-            ax.axvspan(start, end, color='yellow', alpha=0.3, label='Predicted Event Segment')
             ax.axvline(x=rel_time, color='red', linestyle='-', label='Rel. Arrival')
 
         ax.set_xlim([min(times),max(times)])
