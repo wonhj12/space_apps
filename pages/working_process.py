@@ -62,7 +62,7 @@ def Data_processing():
 
     # 첫 번째 열에 이미지 배치
     with col2:
-        st.image("images/Lunar.png", width=200)
+        st.image("images/Lunar.png", width=200, caption="lunar")
         
     st.subheader("Slicing With OverLap")
 
