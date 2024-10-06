@@ -3,11 +3,11 @@ import numpy as np
 from obspy import read
 
 # # 시계열 데이터 준비 함수 (여러 파일 처리, 라벨 데이터셋 사용)
-def slice_data(velocity, time_step):    
+def slice_data(velocity, time_step):
     x = []
     # 데이터 slicing
     x = [velocity[i:i + time_step] for i in range(0, len(velocity), time_step)]
-
+    
     if len(x[-1]) < time_step:
         x[-1] = np.pad(x[-1], (0, time_step - len(x[-1])), 'constant')
     return np.array(x)
