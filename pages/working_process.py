@@ -1,9 +1,8 @@
 import streamlit as st
 
 
-st.title("Challenge Purpose")
 
-st.markdown("### **Background**")
+
 # st.image("https://d2pn8kiwq2w21t.cloudfront.net/images/missionswebPIA22743-16_rfbG1OZ.2e16d0ba.fill-548x400-c50.jpg",width=300)
 
 
@@ -43,8 +42,9 @@ def display_sidebar_toc():
 
 def Data_processing():
     st.title("Working Process")
-
     st.markdown("# Data Processing", unsafe_allow_html=True)
+    
+
 
     # 두 개의 열 생성
     col1, col2 = st.columns([2.5, 1])  # 첫 번째 열이 이미지를, 두 번째 열이 텍스트를 담당 (비율 조정 가능)
@@ -62,7 +62,7 @@ def Data_processing():
 
     # 첫 번째 열에 이미지 배치
     with col2:
-        st.image("images/Lunar.png", width=200, caption="lunar")
+        st.image("images/Lunar.png", width=200, caption="lunar data")
         
     st.subheader("Slicing With OverLap")
 

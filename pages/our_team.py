@@ -91,6 +91,20 @@ def display_team():
         
     st.title("Reference")
     
+    # 출처를 기재하는 코드
+    st.markdown("### Image Sources")
+    st.markdown("1. lunar data : [Nvida](https://blogs.nvidia.co.kr/blog/nasa_deeplearning/)")
+    st.markdown("2. Seismic Exploration on Mars : [Space Apps Challenge](https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/)")
+    # 텍스트 출처
+    st.markdown("### Text Reference")
+    st.markdown("1. [Seismic Detection Across the Solar System](https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/seismic-detection-across-the-solar-system/)")
+    st.markdown("2. [NASA’s InSight Detects First Likely ‘Quake’ on Mars](https://science.nasa.gov/missions/insight/nasas-insight-detects-first-likely-quake-on-mars/)")
+    st.markdown("3. [NASA’s InSight Reveals the Deep Interior of Mars](https://www.jpl.nasa.gov/news/nasas-insight-reveals-the-deep-interior-of-mars/)")
+    st.markdown("4. [Mars Seismic Deployment Lays Groundwork for Future Planetary Missions](https://www.seismosoc.org/news/mars-seismic-deployment-lays-groundwork-for-future-planetary-missions/)")
+    
+    st.markdown("### Reference AI")
+    st.markdown("1. [Chat GPT](https://chatgpt.com/)")
+    
 # 페이지가 호출될 때 함수 실행
 if __name__ == "__main__":
     display_team()
