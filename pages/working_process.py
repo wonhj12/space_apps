@@ -36,14 +36,13 @@ def display_sidebar_toc():
     /* Style TOC links in the sidebar */
     .toc-link {
         font-size: 20px;
-        color: sky-blue;
         text-decoration: none;
         padding: 3px 0;
         display: block;
     }
 
     .toc-link:hover {
-        color: #2c3e50;
+        color: #8b5543;
         font-weight: bold;
         text-decoration: underline;
     }
