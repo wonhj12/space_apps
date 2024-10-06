@@ -1,7 +1,5 @@
 import streamlit as st
-import numpy as np
 import matplotlib.pyplot as plt
-import random
 import json
 from controller.prepare_data import read_mseed_data
 from controller.model import predict
@@ -14,6 +12,45 @@ def load_lottiefile(filepath: str):
     
 # 로딩 애니메이션 불러오기
 lottie_animation = load_lottiefile('./animations/NASA_Loading.json')
+
+# 데이터 예측 진행
+def detect_seismic(file):
+    if file is not None:
+        # 로딩 애니메이션 표시
+        # 중앙 정렬
+        animation_placeholder = st.empty()
+        with animation_placeholder:
+            st_lottie(lottie_animation, speed=1, reverse=False, loop=True, height=500, width=500)
+
+        # 데이터 전처리
+        # result, velocity, times = load_and_preprocess_data_slicing(uploaded_file)
+        velocity, times, sampling_rate = read_mseed_data(uploaded_file)
+
+        segment_length = 6000
+
+        # 데이터 예측
+        classified_events, event_times = predict(velocity, sampling_rate, segment_length)
+
+        # 시각화
+        fig, ax = plt.subplots(1, 1, figsize=(10, 3))
+        ax.plot(times, velocity)
+
+        # 이벤트 표시
+        for i in range(min(len(event_times), len(classified_events))):
+            start, end, _ = classified_events[i]
+            event = event_times[i]
+            rel_time = event + start
+            ax.axvspan(start, end, color='yellow', alpha=0.3, label='Predicted Event Segment')
+            ax.axvline(x=rel_time, color='red', linestyle='-', label='Rel. Arrival')
+
+        ax.set_xlim([min(times),max(times)])
+        ax.set_ylabel('Velocity (m/s)')
+        ax.set_xlabel('Time (s)')
+
+        # 로딩 완료 후 로딩 애니메이션 제거
+        animation_placeholder.empty()
+
+        return plt
 
 st.set_page_config(page_title="Guguduck", layout="wide")
 
@@ -35,41 +72,17 @@ st.title('Seismic Detection')
 # mseed 파일 업로드
 uploaded_file = st.file_uploader('Upload Seismic File', label_visibility = 'hidden', type=['mseed'], accept_multiple_files=False)
 
-if (uploaded_file is not None):
-    # 로딩 애니메이션 표시
-    # 중앙 정렬
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        animation_placeholder = st.empty()
-        with animation_placeholder:
-            st_lottie(lottie_animation, speed=1, reverse=False, loop=True, height=500, width=500)
+if 'detect_clicked' not in st.session_state:
+    st.session_state.detect_clicked = False
 
-    # 데이터 전처리
-    # result, velocity, times = load_and_preprocess_data_slicing(uploaded_file)
-    velocity, times, sampling_rate = read_mseed_data(uploaded_file)
+if uploaded_file is not None and not st.session_state.detect_clicked:
+    _, col, _ = st.columns([1, 1, 1])
+    with col:
+        if st.button('Detect', use_container_width=True):
+            st.session_state.detect_clicked = True
 
-    # 데이터 예측
-    # event_times, 
-    # , a, event_times
-    classification = predict(velocity, times, sampling_rate)
-
-    # 시각화
-    fig, ax = plt.subplots(1, 1, figsize=(10, 3))
-    ax.plot(times, velocity)
-
-    # 모델이 예측한 범위 표시
-    for start, end, max_velocity in classification:
-        ax.axvspan(start, end, color='yellow', alpha=0.3, label='Predicted Event Segment')
-
-    # 이벤트 표시
-    # for event in event_times:
-    #     ax.axvline(x=event, color='red', linestyle='-', label='Rel. Arrival')
-
-    ax.set_xlim([min(times),max(times)])
-    ax.set_ylabel('Velocity (m/s)')
-    ax.set_xlabel('Time (s)')
-
-    st.pyplot(plt)
-
-    # 로딩 완료 후 로딩 애니메이션 제거
-    animation_placeholder.empty()
+if st.session_state.detect_clicked and uploaded_file is not None:
+    st.session_state.detect_clicked = False
+    graph = detect_seismic(uploaded_file)
+    if graph is not None:
+        st.pyplot(graph, use_container_width=True)
