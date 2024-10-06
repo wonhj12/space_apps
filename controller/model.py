@@ -9,25 +9,6 @@ from controller.cnn_classification_model import OneDCNNClassificationModel
 from controller.event_finder_model import OneDCNNRegressionModel
 from controller.prepare_data import slice_data
 
-# h5 모델 불러오기
-def load_h5_model(model_path):
-    try:
-        # 모델 파일이 존재하는지 확인
-        if not os.path.exists(model_path):
-            raise FileNotFoundError('Model does not exist')
-        
-        # 모델 로드
-        model = tf.keras.models.load_model(
-            model_path, 
-            custom_objects={'mse': tf.keras.losses.MeanSquaredError()}
-        )
-    
-        return model
-
-    except Exception as e:
-        print(f'Error loading h5 model: {e}')
-        return None
-
 # pytorch 모델 불러오기
 def load_pth_model(model_path, model):
     try:
@@ -162,8 +143,8 @@ def predict_event_time(segments, velocity, segment_length):
 
     # # 이벤트 모델 로드
     model = OneDCNNRegressionModel(input_channels=segment_length)
-    # model_event = load_pth_model('./event_time_finder_1DCNN.pth', model)
     model_event = load_pth_model('./home/yang1115/models/event_time_finder_1DCNN.pth', model)
+    # model_event = load_pth_model('./event_time_finder_1DCNN.pth', model)
 
     # 모델을 사용하여 예측값 생성
     segment = torch.tensor(test_scaled).float()
