@@ -1,6 +1,8 @@
 # NASA Space Apps Challenge - Team 구구덕
 [Streamlit Dashboard](http://guguduck.earth/)
 
+[NASA Space Apps Challenge](https://www.spaceappschallenge.org/nasa-space-apps-2024/find-a-team/gugudeog/)
+
 ## 1. Background
 ### Main Challenges to Solve
 - **High Cost** : Transmitting the vast amounts of data collected by spacecraft from celestial bodies back to Earth is very costly, as it requires a significant amount of power to send the data, which is greatly affected by distance.
